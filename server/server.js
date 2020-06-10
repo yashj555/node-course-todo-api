@@ -22,6 +22,14 @@ app.post('/todos',(req,res)=>{
   })
  
 });
+ // capture in a object to make it more flexible
+app.get('/todos',(req,res)=>{
+  Todo.find().then((todos)=>{
+       res.send({todos});                                                               
+  },(err)=>{
+     res.status(400).send(err);
+  })
+})
 
 
 app.listen(3001,()=>{

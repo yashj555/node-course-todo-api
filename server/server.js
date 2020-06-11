@@ -6,7 +6,7 @@ var Todo = require("./models/todomodel");
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const port = process.env.Port || 3001;
+const port = process.env.PORT || 3001;
 var app = express();
 
 app.use(bodyParser.json());

@@ -1,11 +1,12 @@
 const mongoose = require("./db/mongoose");
 const {ObjectID} = require("mongodb");
+
 var Todo = require("./models/todomodel"); 
 
 const express = require("express");
 const bodyParser = require("body-parser");
 
-
+const port = process.env.Port || 3001;
 var app = express();
 
 app.use(bodyParser.json());
@@ -23,7 +24,7 @@ app.post('/todos',(req,res)=>{
   })
  
 });
- // capture in a object to make it more flexible
+ // capture in a object ({todos}) to make it more flexible
 app.get('/todos',(req,res)=>{
   Todo.find().then((todos)=>{
        res.send({todos});                                                               
@@ -48,8 +49,8 @@ app.get('/todos/:id',(req,res)=>{
 })
 
 
-app.listen(3001,()=>{
-    console.log("started on port 3001");
+app.listen(port,()=>{
+    console.log("started on port "+port);
 });
 
 // var Todo = mongoose.model("Todo",{
@@ -102,3 +103,6 @@ app.listen(3001,()=>{
 // },(err)=>{
 //    console.log("unable to save user");
 // })
+
+
+//mongolab-cylindrical-17725

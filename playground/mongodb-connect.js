@@ -9,17 +9,17 @@ MongoClient.connect("mongodb://localhost:27017",(err,client)=>{
       console.log("mongodb connected");
       const db = client.db("TodoApp");
 
-  //  db.collection('Todos').insertOne({
-  //    text:"Work is pending",
-  //    completed: "false"
-  //  },(err,result)=>{
-  //     if(err) 
-  //        return console.log("unable to insert the data");    
+   db.collection('todos').insertOne({
+     text:"Work is pending",
+     completed: "false"
+   },(err,result)=>{
+      if(err) 
+         return console.log("unable to insert the data");    
        
-  //      console.log(result.ops);  
-  //      console.log(JSON.stringify(result.ops,undefined,2));  
+       console.log(result.ops);  
+       console.log(JSON.stringify(result.ops,undefined,2));  
       
-  //  });   
+   });   
   db.collection('Users').insertOne({
     name:"abhi",
     age:"24",

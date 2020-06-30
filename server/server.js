@@ -3,6 +3,7 @@ const mongoose = require("./db/mongoose");
 const {ObjectID} = require("mongodb");
 
 var Todo = require("./models/todomodel"); 
+var User = require("./models/usermodel");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -84,6 +85,27 @@ app.patch('/todos/:id',(req,res)=>{
     }).catch((err)=>{
           res.status(400).send();  
     })  
+})
+
+app.post("/users",(req,res)=>{
+ var body = _.pick(req.body,["email","password"]);
+ var user = new User({
+    email: body.email,
+    password:body.password
+   })
+ user.save().then(()=>{
+     console.log(user);
+     return user.generateAuthToken(); 
+    
+ },(err)=>{
+    res.status(400).send(err);  
+ }).then((token)=>{
+  console.log(user); 
+  res.header('x-auth',token).send(user); 
+})
+
+
+  // x-auth is basically denotes the customize header it is not necessarily the http header used by default
 })
 
 

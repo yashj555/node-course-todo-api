@@ -1,12 +1,15 @@
 const _ = require("lodash");
 const mongoose = require("./db/mongoose");
 const {ObjectID} = require("mongodb");
+const express = require("express");
+const bodyParser = require("body-parser");
+const {authenticate} = require("./middleware/authenticate");
 
 var Todo = require("./models/todomodel"); 
 var User = require("./models/usermodel");
 
-const express = require("express");
-const bodyParser = require("body-parser");
+
+
 
 const port = process.env.PORT || 3001;
 var app = express();
@@ -107,6 +110,20 @@ app.post("/users",(req,res)=>{
 
   // x-auth is basically denotes the customize header it is not necessarily the http header used by default
 })
+
+
+
+
+
+app.get("/user/me",authenticate,(req,res)=>{
+  res.send(req.user);
+
+})
+
+
+
+
+
 
 
 app.listen(port,()=>{

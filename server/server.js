@@ -97,13 +97,11 @@ app.post("/users",(req,res)=>{
     password:body.password
    })
  user.save().then(()=>{
-     console.log(user);
      return user.generateAuthToken(); 
     
  },(err)=>{
     res.status(400).send(err);  
  }).then((token)=>{
-  console.log(user); 
   res.header('x-auth',token).send(user); 
 })
 

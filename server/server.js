@@ -123,6 +123,12 @@ app.post("/users/login",(req,res)=>{
   // x-auth is basically denotes the customize header it is not necessarily the http header used by default
 })
 
+app.delete("/user/me/token",authenticate,(req,res)=>{
+   req.user.removeToken(req.token).then(()=>{
+     res.status(200).send();
+   })
+});
+
 
 
 

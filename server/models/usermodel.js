@@ -62,6 +62,15 @@ UserSchema.methods.generateAuthToken=function()
     }
     )
 }
+UserSchema.methods.removeToken=function(token)
+{
+   var User = this;
+  return User.update({
+       $pull:{
+           tokens:{token}
+       }
+   })
+}
 UserSchema.statics.findByToken=function(token)
 { 
 
@@ -86,15 +95,12 @@ UserSchema.statics.findByToken=function(token)
 }
 // this middleware called before the document "save"
 UserSchema.pre("save",function(next){
-   console.log("save middleware is called"); 
    var user = this;
-   console.log(user.isModified("password"));
    if(user.isModified("password"))
    {   
        bcrypt.genSalt(10,(err,salt)=>{
            bcrypt.hash(user.password,salt,(err,hash)=>{
               user.password = hash;
-              console.log(user.password);
               next();
            })
        })
